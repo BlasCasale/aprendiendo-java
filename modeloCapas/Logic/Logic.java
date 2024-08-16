@@ -1,5 +1,5 @@
-package modeloCapas;
+package Logic;
 
-public class modeloCapas {
-
+public class Logic {
+  
 }
