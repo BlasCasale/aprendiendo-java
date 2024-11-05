@@ -1,4 +1,10 @@
-package com.mycompany.javapersistenceapi;
+package javaPersistanceAPI;
+
+import java.util.ArrayList;
+import java.util.Date;
+import logic.Career;
+import logic.Controller;
+import logic.Student;
 
 public class JavaPersistenceAPI {
 
@@ -22,9 +28,9 @@ public class JavaPersistenceAPI {
         nos permite comunicar la app con la bdd
         
         clases = entidades
-        */
-        
-        /*
+         */
+
+ /*
         anotaciones mas usadas
         
         . @Entity: especifica la creacion de una entidad. se coloca al inicio de la definicion de una clase
@@ -33,7 +39,7 @@ public class JavaPersistenceAPI {
         - @GenerateValue(strategy = GenerationType.SEQUENCE): establece que la ID se va a generar de forma
         automatica y secuencial
         
-        . @Basic: para hacer referencia a atributos comunes
+        . @Baszic: para hacer referencia a atributos comunes
         
         . @Temporal se usa normalmente en fechas
         - si se quiere tener en cuenta la hora se utiliza: @Temporal(TemporalType.TIMESTAMP)
@@ -44,6 +50,32 @@ public class JavaPersistenceAPI {
         @OneToOne: 1 a 1
         
         @ManyToMany: n a n
-        */
+         */
+        Controller controller = new Controller();
+        /*
+        Student student = new Student(22, "Jazmin", "Aranda", new Date());
+        controller.createStudent(student);
+        controller.deleteStudent(22);
+        
+        student.setName("Jazmin Maria Ayelen");
+        
+        controller.editStudent(student);
+         */
+
+        // Student student = new Student(32, "Nicolas", "Galdos", new Date());
+        /*
+        controller.createStudent(student);
+        System.out.println(controller.findStuden(15).getName());
+
+        ArrayList<Student> listStudent = controller.getListStudents();
+
+        for (Student stud : listStudent) {
+            System.out.println(stud.getName() + " " + stud.getLastName());
+        }
+         */
+        Career career = new Career("Lic en sistemas", 37);
+        controller.createCareer(career);
+        controller.createStudent(new Student(22, "Blas", "Casale", new Date(), career));
+        System.out.println(controller.findStudent(22).getCareer().getName());
     }
 }

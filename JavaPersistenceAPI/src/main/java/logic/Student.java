@@ -1,16 +1,17 @@
-package com.mycompany.javapersistenceapi.Logic;
+package logic;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
-public class Student {
+public class Student implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,15 +21,18 @@ public class Student {
     private String lastName;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date bornDate;
+    @OneToOne
+    private Career career;
 
     public Student() {
     }
 
-    public Student(int id, String name, String lastName, Date bornDate) {
+    public Student(int id, String name, String lastName, Date bornDate, Career career) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.bornDate = bornDate;
+        this.career = career;
     }
 
     public int getId() {
@@ -63,4 +67,11 @@ public class Student {
         this.bornDate = bornDate;
     }
 
+    public Career getCareer() {
+        return career;
+    }
+
+    public void setCareer(Career career) {
+        this.career = career;
+    }
 }
