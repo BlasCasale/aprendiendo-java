@@ -47,4 +47,24 @@ public class Controller {
         return persisController.getListCareer();
     }
 
+    public void createSubject(Subject subject) {
+        persisController.createSubject(subject);
+    }
+
+    public void deleteSubject(int id) {
+        persisController.deleteSubject(id);
+    }
+
+    public void editSubject(Subject subject) {
+        persisController.editSubject(subject);
+    }
+
+    public Subject findSubject(int id) {
+        return persisController.findSubject(id);
+    }
+
+    public ArrayList<Subject> getListSubjects() {
+        return persisController.getListSubjects();
+    }
+
 }

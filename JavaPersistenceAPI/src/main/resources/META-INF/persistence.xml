@@ -4,6 +4,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>logic.Student</class>
     <class>logic.Career</class>
+    <class>logic.Subject</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pruebajpa?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

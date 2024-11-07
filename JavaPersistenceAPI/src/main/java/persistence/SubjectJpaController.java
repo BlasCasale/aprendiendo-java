@@ -5,13 +5,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import logic.Career;
+import logic.Subject;
 
-public class CareerJpaController implements Serializable {
+public class SubjectJpaController implements Serializable {
 
     private EntityManagerFactory emf = null;
 
-    public CareerJpaController() {
+    public SubjectJpaController() {
         emf = Persistence.createEntityManagerFactory("persistencePU");
     }
 
@@ -19,11 +19,11 @@ public class CareerJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Career career) {
+    public void create(Subject subject) {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
-            em.persist(career);
+            em.persist(subject);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -32,29 +32,29 @@ public class CareerJpaController implements Serializable {
         }
     }
 
-    public Career findCareer(int id) {
+    public Subject findSubject(int id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Career.class, id);
+            return em.find(Subject.class, id);
         } finally {
             em.close();
         }
     }
 
-    public List<Career> findAllCareers() {
+    public List<Subject> findAllSubjects() {
         EntityManager em = getEntityManager();
         try {
-            return em.createQuery("SELECT c FROM Career c", Career.class).getResultList();
+            return em.createQuery("SELECT s FROM Subject s", Subject.class).getResultList();
         } finally {
             em.close();
         }
     }
 
-    public void update(Career career) {
+    public void update(Subject subject) {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
-            em.merge(career);
+            em.merge(subject);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -67,9 +67,9 @@ public class CareerJpaController implements Serializable {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
-            Career career = em.find(Career.class, id);
-            if (career != null) {
-                em.remove(career);
+            Subject subject = em.find(Subject.class, id);
+            if (subject != null) {
+                em.remove(subject);
             }
             em.getTransaction().commit();
         } finally {

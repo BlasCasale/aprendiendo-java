@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import logic.Career;
 import logic.Student;
+import logic.Subject;
 
 public class PersistenceController {
 
     StudentJpaController studentJpa = new StudentJpaController();
     CareerJpaController careerJpa = new CareerJpaController();
+    SubjectJpaController subjectJpa = new SubjectJpaController();
 
     public void createStudent(Student student) {
         studentJpa.create(student);
@@ -39,7 +41,7 @@ public class PersistenceController {
 
     public void deleteCareer(int id) {
         try {
-            careerJpa.destroy(id);
+            careerJpa.delete(id);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -62,6 +64,29 @@ public class PersistenceController {
         ArrayList<Career> listCareers = new ArrayList<Career>(list);
 
         return listCareers;
+    }
+
+    public void createSubject(Subject subject) {
+        subjectJpa.create(subject);
+    }
+
+    public Subject findSubject(int id) {
+        return subjectJpa.findSubject(id);
+    }
+    
+    public void deleteSubject(int id) {
+        subjectJpa.delete(id);
+    }
+    
+    public void editSubject (Subject subject) {
+        subjectJpa.update(subject);
+    }
+
+    public ArrayList<Subject> getListSubjects() {
+        List<Subject> list = subjectJpa.findAllSubjects();
+        ArrayList<Subject> listSubjects = new ArrayList<Subject>(list);
+
+        return listSubjects;
     }
 
 }

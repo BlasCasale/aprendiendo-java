@@ -2,9 +2,11 @@ package javaPersistanceAPI;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import logic.Career;
 import logic.Controller;
 import logic.Student;
+import logic.Subject;
 
 public class JavaPersistenceAPI {
 
@@ -73,8 +75,22 @@ public class JavaPersistenceAPI {
             System.out.println(stud.getName() + " " + stud.getLastName());
         }
          */
-        Career career = new Career("Lic en sistemas", 37);
+        LinkedList<Subject> subjectList = new LinkedList<Subject>();
+
+        Career career = new Career("Lic en sistemas", 37, subjectList);
         controller.createCareer(career);
+
+        Subject cadp = new Subject("CADP", "Cuatrimestral", career);
+        Subject oc = new Subject("OC", "Cuatrimestral", career);
+        controller.createSubject(oc);
+        controller.createSubject(cadp);
+        subjectList.add(cadp);
+        subjectList.add(oc);
+
+        career.setSubjectsList(subjectList);
+
+        controller.editCareer(career);
+
         controller.createStudent(new Student(22, "Blas", "Casale", new Date(), career));
         System.out.println(controller.findStudent(22).getCareer().getName());
     }
