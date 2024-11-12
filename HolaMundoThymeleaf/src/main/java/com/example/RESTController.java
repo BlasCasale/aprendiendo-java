@@ -15,21 +15,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 @Slf4j
 public class RESTController {
-    
+
     @Value("${index.helloApp}")
     private String helloApp;
-    
+
     @GetMapping("/")
     public String theBeggins(Model model) {
+
+        String hello = "ya cambio";
+        model.addAttribute("hello", hello);
+        model.addAttribute("helloApp", helloApp);
+        
         Individual individual = new Individual();
         individual.setName("Blas");
         individual.setLastName("Casale");
         individual.setAge(27);
         individual.setMail("fake@mail.com");
         individual.setCellphone("123456");
-        String hello = "ya cambio";
-        model.addAttribute("hello", hello);
-        model.addAttribute("helloApp", helloApp);
+        
+        model.addAttribute("individual", individual);
         return "index";
     }
 }
