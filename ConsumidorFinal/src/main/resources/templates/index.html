@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Spring API - Inicio</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header>
+            <h1>Spring API</h1>
+        </header>
+
+        <div th:if="${individuals != null and !individuals.empty}">
+            <ul>
+                <li th:each="individual : ${individuals}">
+                    <p th:text="${individual.name}"></p>  
+                    <p th:text="${individual.last_name}"></p>
+                    <p th:text="${individual.age}"></p>
+                    <p th:text="${individual.mail}"></p>
+                    <p th:text="${individual.cellphone}"></p>
+                </li>
+            </ul>
+        </div>
+        <div th:if="${individuals == null or individuals.empty}">
+            <p>La lista no tiene información</p>
+        </div>
+    </body>
+</html>

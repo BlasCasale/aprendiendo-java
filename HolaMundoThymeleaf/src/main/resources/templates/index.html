@@ -8,12 +8,24 @@
     <body>
         <header>
             <h1>Spring API</h1>
+            
             <p th:text="${hello}"></p>
             <p th:text="${helloApp}"></p>
-            <p>Nombre: <span th:text="${individual.name}"></span></p>
-            <p>Apellido: <span th:text="${individual.lastName}"></span></p>
-            <p>Mail: <span th:text="${individual.mail}"></span></p>
 
+            <div th:if="${individuals != null and !individuals.empty}">
+                <ul>
+                    <li th:each="individual : ${individuals}">
+                        <p th:text="${individual.name}"></p>  
+                        <p th:text="${individual.lastName}"></p>
+                        <p th:text="${individual.age}"></p>
+                        <p th:text="${individual.mail}"></p>
+                        <p th:text="${individual.cellphone}"></p>
+                    </li>
+                </ul>
+            </div>
+            <div th:if="${individuals == null or individuals.empty}">
+                <p>La lista no tiene información</p>
+            </div>
         </header>
     </body>
 </html>
