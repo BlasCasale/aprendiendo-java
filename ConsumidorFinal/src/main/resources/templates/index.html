@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <header>
-            <h1>Spring API</h1>
-        </header>
+        <<header th:replace="Stencil/stencil :: header" />
+
+        <a th:href="@{/append}">Alta individuo</a>
 
         <div th:if="${individuals != null and !individuals.empty}">
             <ul>
@@ -18,6 +18,9 @@
                     <p th:text="${individual.age}"></p>
                     <p th:text="${individual.mail}"></p>
                     <p th:text="${individual.cellphone}"></p>
+                    <a th:href="@{/append/} + ${individual.id}">Editar</a>
+                    <a th:href="@{/delete/} + ${individual.id}">Eliminar</a>
+                    <!-- <a th:href="@{/delete(id=${individual.id)}}">Eliminar</a> -->
                 </li>
             </ul>
         </div>
