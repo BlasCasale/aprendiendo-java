@@ -24,68 +24,72 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class RESTController {
 
-    @Autowired
-    private IndividualService individualService;
+  @Autowired
+  private IndividualService individualService;
 
-    @GetMapping("/")
-    public String theBeggins(Model model) {
+  @GetMapping("/")
+  public String theBeggins(Model model) {
 
-        List<Individual> individuals = individualService.individualList();
+    List<Individual> individuals = individualService.individualList();
 
-        model.addAttribute("individuals", individuals);
-        return "index";
+    model.addAttribute("individuals", individuals);
+    return "index";
+  }
+
+  @GetMapping("/getAll")
+  public List<Individual> getAllIndividual() {
+    return individualService.individualList();
+  }
+
+  @GetMapping("/append")
+  public String append(Individual individual) {
+    return "append";
+  }
+
+  @PostMapping("/save")
+  public String save(@Valid Individual individual, Errors error) {
+    if (error.hasErrors()) {
+      return "append";
     }
+    individualService.save(individual);
+    return "redirect:/";
+  }
 
-    @GetMapping("/getAll")
-    public List<Individual> getAllIndividual() {
-        return individualService.individualList();
+  @PostMapping("/saveApi")
+  public ResponseEntity<?> saveApi(@Valid @RequestBody Individual individual) {
+    try {
+      individualService.saveApi(individual);
+      return ResponseEntity.ok(individual);
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al guardar el individuo: " + e.getMessage());
     }
+  }
 
-    @GetMapping("/append")
-    public String append(Individual individual) {
-        return "append";
+  public ResponseEntity<?> saveApi(@Valid @RequestBody Individual individual, BindingResult result) {
+    if (result.hasErrors()) {
+      return ResponseEntity.badRequest().body(result.getAllErrors());
     }
+    Individual savedIndividual = individualService.saveApi(individual);
+    return new ResponseEntity<>(savedIndividual, HttpStatus.CREATED);
+  }
 
-    @PostMapping("/save")
-    public String save(@Valid Individual individual, Errors error) {
-        if (error.hasErrors()) {
-            return "append";
-        }
-        individualService.save(individual);
-        return "redirect:/";
-    }
+  @GetMapping("/append/{id}")
+  public String edit(Individual individual, Model model
+  ) {
+    individual = individual = individualService.find(individual);
+    model.addAttribute("individual", individual);
+    return "append";
+  }
 
-    @PostMapping("/saveApi")
-    public Individual saveApi(@Valid @RequestBody Individual individual) {
-        individualService.saveApi(individual);
-        return individual;
-    }
-
-    public ResponseEntity<?> saveApi(@Valid @RequestBody Individual individual, BindingResult result) {
-        if (result.hasErrors()) {
-            return ResponseEntity.badRequest().body(result.getAllErrors());
-        }
-        Individual savedIndividual = individualService.saveApi(individual);
-        return new ResponseEntity<>(savedIndividual, HttpStatus.CREATED);
-    }
-
-    @GetMapping("/append/{id}")
-    public String edit(Individual individual, Model model
-    ) {
-        individual = individual = individualService.find(individual);
-        model.addAttribute("individual", individual);
-        return "append";
-    }
-
-    @GetMapping("/delete/{id}")
-    public String delete(Individual individual
-    ) {
-        individualService.delete(individual);
-        return "redirect:/";
-    }
-    //@GetMapping("/delete")
-    //public String delete(Individual individual) {
-    //    individualService.delete(individual);
-    //    return "redirect:/";
-    //}
+  @GetMapping("/delete/{id}")
+  public String delete(Individual individual
+  ) {
+    individualService.delete(individual);
+    return "redirect:/";
+  }
+  //@GetMapping("/delete")
+  //public String delete(Individual individual) {
+  //    individualService.delete(individual);
+  //    return "redirect:/";
+  //}
 }
